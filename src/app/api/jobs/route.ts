@@ -3,10 +3,23 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { formSchema } from "@/lib/FormSchema";
 import { prisma } from "@/lib/prisma";
 
-// GET: Fetch all jobs
-export async function GET() {
+// GET: Fetch jobs with pagination
+export async function GET(req: Request) {
   try {
+    // Extract query parameters
+    const { searchParams } = new URL(req.url);
+    const cursor = searchParams.get("cursor"); // The cursor from client
+    const limit = parseInt(searchParams.get("limit") || "10"); // Items per page
+
     const jobs = await prisma.job.findMany({
+      take: limit + 1, // Get one extra to check if there's more
+      ...(cursor && {
+        // Only if cursor exists
+        skip: 1, // Skip the cursor item itself
+        cursor: {
+          id: cursor, // Start after this ID
+        },
+      }),
       include: {
         company: {
           select: {
@@ -19,11 +32,25 @@ export async function GET() {
         },
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: "desc", // Newest first
       },
     });
 
-    return NextResponse.json(jobs, { status: 200 });
+    // Check if there's more data
+    const hasNextPage = jobs.length > limit;
+    // Remove the extra item if exists
+    const items = hasNextPage ? jobs.slice(0, -1) : jobs;
+    // Get the last item's ID as next cursor
+    const nextCursor = hasNextPage ? items[items.length - 1]?.id : null;
+
+    return NextResponse.json(
+      {
+        items, // The actual items for this page
+        nextCursor, // Cursor for next page (null if no more)
+        hasNextPage, // Boolean flag
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return NextResponse.json(
@@ -96,4 +123,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
-
