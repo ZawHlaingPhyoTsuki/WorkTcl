@@ -29,7 +29,7 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <Avatar className="w-10 h-10 shrink-0">
-            <AvatarImage src={user.picture || "/user-avatar.jpg"} />
+            <AvatarImage className="w-10 h-10 rounded-full" src={user.picture || "/user-avatar.jpg"} />
             <AvatarFallback className="bg-blue-500 text-white flex items-center justify-center">
               {user.given_name?.[0] || "U"}
             </AvatarFallback>
@@ -37,6 +37,8 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
 
           <Dialog open={open} onOpenChange={setOpen}>
             <div className="flex items-center gap-2 w-full">
+
+              {/* Input */}
               <DialogTrigger asChild className="flex-1">
                 <Button
                   variant="ghost"
@@ -46,6 +48,7 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
                 </Button>
               </DialogTrigger>
 
+              {/* Post Button */}
               <DialogTrigger asChild>
                 <Button
                   variant="secondary"

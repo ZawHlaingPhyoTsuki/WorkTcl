@@ -67,11 +67,17 @@ export function JobPostCard({ job }: JobPostCardProps) {
           <span className="text-primary font-medium">{salaryText}</span>
           <div className="flex gap-2">
             {isNew && (
-              <Badge variant="secondary" className="text-green-600 bg-green-50">
+              <Badge
+                variant="secondary"
+                className="text-green-600 bg-green-50 dark:bg-secondary"
+              >
                 New
               </Badge>
             )}
-            <Badge variant="secondary" className="text-blue-600 bg-blue-50">
+            <Badge
+              variant="secondary"
+              className="text-blue-600 bg-blue-50 dark:bg-secondary"
+            >
               {dateText}
             </Badge>
           </div>

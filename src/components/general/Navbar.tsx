@@ -97,6 +97,11 @@ const UserDropDown = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link href="/landing" className="w-full">
+                  Landing
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/subscription" className="w-full">
                   Subscription
                 </Link>
