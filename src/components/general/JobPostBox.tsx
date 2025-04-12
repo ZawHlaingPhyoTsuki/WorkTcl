@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { JobPostForm } from "./(form)/JobPostForm";
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { Job, KindeUserType } from "./CenterContent";
+import { KindeUserType } from "./CenterContent";
 
 interface JobPostBoxProps {
   user: KindeUserType | null;
@@ -22,7 +21,6 @@ interface JobPostBoxProps {
 
 export default function JobPostBox({ user }: JobPostBoxProps) {
   const [open, setOpen] = useState(false);
-  const queryClient = useQueryClient();
 
   if (!user) return <div />;
 
@@ -84,12 +82,7 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
                   </div>
                 </div>
 
-                <JobPostForm
-                  onSuccess={async () => {
-                    setOpen(false);
-                    await queryClient.invalidateQueries<Job[]>({ queryKey: ["jobs"] });
-                  }}
-                />
+                <JobPostForm onSuccess={() => setOpen(false)}/>
               </div>
             </DialogContent>
           </Dialog>

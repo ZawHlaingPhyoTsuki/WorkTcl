@@ -68,7 +68,7 @@ export default function CenterContent({ user }: CenterContentProps) {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const jobs = data?.pages.flatMap((page) => page.items) || [];
+  const jobs: Job[] = data?.pages.flatMap((page) => page.items) || [];
 
   return (
     <section className="col-span-12 md:col-span-8 flex flex-col gap-4 max-w-2xl mx-auto w-full">

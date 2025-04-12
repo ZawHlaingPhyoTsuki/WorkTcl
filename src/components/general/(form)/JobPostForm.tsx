@@ -21,8 +21,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { formSchema, FormValues } from "@/lib/FormSchema";
-import { api } from "@/lib/axios";
 import { toast } from "sonner";
+import { useCreateJob } from "@/hooks/use-create-job";
 
 interface JobPostFormProps {
   onSuccess?: () => void;
@@ -42,9 +42,11 @@ export function JobPostForm({ onSuccess }: JobPostFormProps) {
     },
   });
 
+  const { mutate: createJob, isPending } = useCreateJob();
+
   const onSubmit = async (values: FormValues) => {
     try {
-      await api.post("/jobs", values);
+      createJob(values);
       form.reset();
       toast.success("Job posted successfully!");
       onSuccess?.();
@@ -192,8 +194,8 @@ export function JobPostForm({ onSuccess }: JobPostFormProps) {
 
         {/* Submit Button */}
         <div className="flex justify-end pt-4">
-          <Button type="submit" className="w-fit">
-            Post Job
+          <Button type="submit" disabled={isPending} className="w-fit">
+            {isPending ? "Posting..." : "Post Job"}
           </Button>
         </div>
       </form>
