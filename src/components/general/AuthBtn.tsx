@@ -36,7 +36,6 @@ export const DesktopAuthBtn = () => {
 export const MobileAuthLogoutBtn = () => {
   const { getUser } = useKindeBrowserClient();
   const user = getUser();
-  console.log("user", user)
 
   return user ? (
     <LogoutLink>

@@ -1,8 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Card } from "../ui/card";
 import { Send } from "lucide-react";
 import {
   Dialog,
@@ -11,9 +8,12 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { JobPostForm } from "./(form)/JobPostForm";
 import { useState } from "react";
-import { KindeUserType } from "./CenterContent";
+import { KindeUserType } from "../CenterContent";
+import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Button } from "@/components/ui/button";
+import { JobPostForm } from "./JobPostForm";
 
 interface JobPostBoxProps {
   user: KindeUserType | null;

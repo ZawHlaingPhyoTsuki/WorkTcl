@@ -20,17 +20,17 @@ import {
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { formSchema, FormValues } from "@/lib/FormSchema";
 import { toast } from "sonner";
 import { useCreateJob } from "@/hooks/use-create-job";
+import { jobSchema, JobValues } from "@/lib/schemas/JobSchema";
 
 interface JobPostFormProps {
   onSuccess?: () => void;
 }
 
 export function JobPostForm({ onSuccess }: JobPostFormProps) {
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<JobValues>({
+    resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
       description: "",
@@ -44,7 +44,7 @@ export function JobPostForm({ onSuccess }: JobPostFormProps) {
 
   const { mutate: createJob, isPending } = useCreateJob();
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: JobValues) => {
     try {
       createJob(values);
       form.reset();

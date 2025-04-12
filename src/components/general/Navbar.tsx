@@ -97,11 +97,6 @@ const UserDropDown = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/company" className="w-full">
-                  Company
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <Link href="/subscription" className="w-full">
                   Subscription
                 </Link>
