@@ -87,19 +87,19 @@ export async function GET(req: Request) {
         nextCursor, // ID to use for next page (null if no more pages)
         hasNextPage, // Boolean indicating if more pages exist
       },
-      { status: 200 } // Success status
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return NextResponse.json(
       { message: "Failed to fetch jobs" },
-      { status: 500 } // Server error status
+      { status: 500 } 
     );
   }
 }
 
 // POST: Create a new job listing
-export async function POST(req: Request) {
+  export async function POST(req: Request) {
   // Get current user session
   const { getUser } = getKindeServerSession();
   const user = await getUser();

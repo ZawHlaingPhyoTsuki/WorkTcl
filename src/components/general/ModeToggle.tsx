@@ -15,8 +15,8 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" className="w-9 h-9">
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
+      <Button variant="outline" size="icon" className=" w-9 h-9">
+        <div className="h-[1.2rem] w-[1.2rem]" />
       </Button>
     );
   }
@@ -30,7 +30,7 @@ export function ModeToggle() {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      className="w-9 h-9"
+      className=" w-9 h-9"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (

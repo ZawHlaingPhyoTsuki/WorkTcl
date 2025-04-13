@@ -25,19 +25,19 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
   if (!user) return <div />;
 
   return (
-    <Card className="rounded-lg shadow-sm px-4 pt-6 pb-4">
+    <Card className="rounded-lg shadow-sm px-4 pt-6 pb-4 rounded-b-lg mt-2">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <Avatar className="w-10 h-10 shrink-0">
-            <AvatarImage className="w-10 h-10 rounded-full" src={user.picture || "/user-avatar.jpg"} />
-            <AvatarFallback className="bg-blue-500 text-white flex items-center justify-center">
-              {user.given_name?.[0] || "U"}
-            </AvatarFallback>
+          <Avatar className="w-10 h-10 rounded-full shrink-0">
+            <AvatarImage
+              className="w-10 h-10 rounded-full"
+              src={user.picture || ""}
+            />
+            <AvatarFallback className="bg-muted text-primary-foreground font-medium w-10 h-10 rounded-full flex items-center justify-center" />
           </Avatar>
 
           <Dialog open={open} onOpenChange={setOpen}>
             <div className="flex items-center gap-2 w-full">
-
               {/* Input */}
               <DialogTrigger asChild className="flex-1">
                 <Button
@@ -69,8 +69,11 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
               </DialogDescription>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage src={user.picture || "/user-avatar.jpg"} />
+                  <Avatar className="w-10 h-10 rounded-full">
+                    <AvatarImage
+                      src={user.picture || "/user-avatar.jpg"}
+                      className="rounded-full"
+                    />
                     <AvatarFallback className="bg-blue-500 text-white">
                       {user.given_name?.[0] || "U"}
                     </AvatarFallback>
@@ -85,7 +88,7 @@ export default function JobPostBox({ user }: JobPostBoxProps) {
                   </div>
                 </div>
 
-                <JobPostForm onSuccess={() => setOpen(false)}/>
+                <JobPostForm onSuccess={() => setOpen(false)} />
               </div>
             </DialogContent>
           </Dialog>

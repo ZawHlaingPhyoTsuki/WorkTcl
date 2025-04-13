@@ -4,8 +4,8 @@ import { ThemeProvider } from "./theme-provider";
 import { AuthProvider } from "./AuthProvider";
 import { QueryProvider } from "./QueryProvider";
 import { Toaster } from "sonner";
-import { ModeToggle } from "../general/ModeToggle";
 import { Navbar } from "../general/Navbar";
+import { SearchProvider } from "@/context/SearchContext";
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -17,12 +17,12 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       >
         <QueryProvider>
-          <Navbar />
-          {children}
-          <div className="hidden sm:block fixed bottom-3 right-3 z-50">
-            <ModeToggle />
-          </div>
-          <Toaster />
+          <SearchProvider>
+            <Navbar />
+            {children}
+
+            <Toaster />
+          </SearchProvider>
         </QueryProvider>
       </ThemeProvider>
     </AuthProvider>

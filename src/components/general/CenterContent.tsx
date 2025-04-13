@@ -11,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import JobPostBox from "./job/JobPostBox";
 import { JobPostCard } from "./job/JobPostCard";
 import { JobType } from "@/lib/schemas/JobSchema";
+import { useSearch } from "@/context/SearchContext";
 
 export type KindeUserType = Awaited<
   ReturnType<ReturnType<typeof getKindeServerSession>["getUser"]>
@@ -20,14 +21,23 @@ interface CenterContentProps {
   user: KindeUserType | null;
 }
 
-const getJobs = async ({ pageParam = null }: { pageParam?: string | null }) => {
-  const url = `/jobs${pageParam ? `?cursor=${pageParam}&limit=5` : "?limit=5"}`;
+const getJobs = async ({
+  pageParam = null,
+  search = "",
+}: {
+  pageParam?: string | null;
+  search?: string;
+}) => {
+  const url = `/jobs?limit=5${pageParam ? `&cursor=${pageParam}` : ""}${
+    search ? `&search=${encodeURIComponent(search)}` : ""
+  }`;
   const res = await api.get(url);
   return res.data;
 };
 
 export default function CenterContent({ user }: CenterContentProps) {
   const { ref, inView } = useInView();
+  const { search } = useSearch();
 
   const {
     data,
@@ -37,8 +47,8 @@ export default function CenterContent({ user }: CenterContentProps) {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["jobs"],
-    queryFn: getJobs,
+    queryKey: ["jobs", search],
+    queryFn: ({ pageParam }) => getJobs({ pageParam, search }),
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
     initialPageParam: null,
     staleTime: 1000 * 60 * 5,
