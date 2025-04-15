@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
-import { ModeToggleDropdownItem } from "./ModeToggleDropdownItem";
+import { ModeToggleDropdownItem } from "./ModeToggleDropdownItem"; 
 
 export function UserDropDown() {
   const { getUser, isLoading } = useKindeBrowserClient();

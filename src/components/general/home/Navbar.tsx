@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, X } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { useEffect, useState } from "react";
-import { UserDropDown } from "./UserDropDown";
+import { UserDropDown } from "./UserDropDown"; 
 
 export function Navbar() {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);

@@ -4,7 +4,6 @@ import { ThemeProvider } from "./theme-provider";
 import { AuthProvider } from "./AuthProvider";
 import { QueryProvider } from "./QueryProvider";
 import { Toaster } from "sonner";
-import { Navbar } from "../general/Navbar";
 import { SearchProvider } from "@/context/SearchContext";
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
@@ -18,7 +17,6 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       >
         <QueryProvider>
           <SearchProvider>
-            <Navbar />
             {children}
 
             <Toaster />

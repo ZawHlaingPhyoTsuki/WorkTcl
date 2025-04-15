@@ -21,7 +21,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useCreateJob } from "@/hooks/use-create-job";
+import { useCreateJob } from "@/hooks/useCreateJob";
 import { jobSchema, JobValues } from "@/lib/schemas/JobSchema";
 
 interface JobPostFormProps {

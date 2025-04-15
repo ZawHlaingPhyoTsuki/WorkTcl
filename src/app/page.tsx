@@ -1,9 +1,7 @@
-import RightContent from "@/components/general/RightContent";
-import LeftContent from "@/components/general/LeftContent";
+import RightContent from "@/components/general/home/RightContent";
+import LeftContent from "@/components/general/home/LeftContent";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import CenterContent from "@/components/general/CenterContent";
-
-
+import CenterContent from "@/components/general/home/CenterContent";
 
 export default async function HomePage() {
   const { getUser } = getKindeServerSession();

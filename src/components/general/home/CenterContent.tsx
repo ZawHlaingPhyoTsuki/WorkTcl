@@ -1,17 +1,17 @@
 "use client";
 
-import { Card } from "../ui/card";
 import { api } from "@/lib/axios";
-import { JobPostCardSkeleton } from "./job/JobPostCardSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { useEffect } from "react";
-import { Button } from "../ui/button";
 import { useInView } from "react-intersection-observer";
-import JobPostBox from "./job/JobPostBox";
-import { JobPostCard } from "./job/JobPostCard";
 import { JobType } from "@/lib/schemas/JobSchema";
 import { useSearch } from "@/context/SearchContext";
+import { JobPostCardSkeleton } from "../job/JobPostCardSkeleton";
+import JobPostBox from "../job/JobPostBox";
+import { Card } from "@/components/ui/card";
+import { JobPostCard } from "../job/JobPostCard";
+import { Button } from "@/components/ui/button";
 
 export type KindeUserType = Awaited<
   ReturnType<ReturnType<typeof getKindeServerSession>["getUser"]>
