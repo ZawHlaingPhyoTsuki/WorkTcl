@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
+
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+
     "seed": "tsx prisma/seed.ts",
     "seed:dev": "prisma db push --accept-data-loss && pnpm seed",
     "seed:prod": "prisma migrate deploy && pnpm seed",
