@@ -3,42 +3,24 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { JobType } from "@/lib/schemas/JobSchema";
+import { SocialIcon } from "@/components/ui/social-icons";
+import {
+  getTimeSincePosting,
+  getDisplayName,
+  getSalaryText,
+  formatJobType,
+} from "@/lib/utils/job-helpers";
 
 interface JobPostCardProps {
   job: JobType;
 }
 
 export function JobPostCard({ job }: JobPostCardProps) {
-  // Calculate time since posting
-  const createdAt = new Date(job.createdAt);
-  const currentDate = new Date();
-  const daysAgo = Math.floor(
-    (currentDate.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  // Determine if job is new and format date text
-  const isNew = daysAgo <= 7;
-  const dateText =
-    daysAgo === 0 ? "Today" : daysAgo === 1 ? "1d ago" : `${daysAgo}d ago`;
-
-  // Get user display name
-  const username =
-    job.user.firstName && job.user.lastName
-      ? `${job.user.firstName} ${job.user.lastName}`
-      : "User";
-
-  // Format salary display with proper handling of null/undefined
-  const salaryText =
-    job.salaryMin && job.salaryMax
-      ? `฿${job.salaryMin.toLocaleString()} - ฿${job.salaryMax.toLocaleString()}/m`
-      : "Salary negotiable";
-
-  // Format job type for display (FULL_TIME -> Full Time)
-  const formattedJobType = job.type
-    .toLowerCase()
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  // Derived values using the helper functions
+  const { isNew, dateText } = getTimeSincePosting(job.createdAt);
+  const username = getDisplayName(job.user);
+  const salaryText = getSalaryText(job);
+  const formattedJobType = formatJobType(job.type);
 
   return (
     <Card className="p-6 transition-all duration-200 border shadow-lg hover:shadow-xl">
@@ -87,6 +69,19 @@ export function JobPostCard({ job }: JobPostCardProps) {
         <p className="text-sm line-clamp-2 text-muted-foreground">
           {job.description}
         </p>
+
+        {/* Social Media Icons */}
+        {job.user.socialLinks.length > 0 && (
+          <div className="flex gap-2 mt-2">
+            {job.user.socialLinks.map((link) => {
+              // Ensure platform is valid before rendering
+              const platform = link.label.toLowerCase();
+              return (
+                <SocialIcon key={link.id} platform={platform} url={link.url} />
+              );
+            })}
+          </div>
+        )}
 
         {/* Footer with action button */}
         <div className="flex justify-between items-center pt-2">

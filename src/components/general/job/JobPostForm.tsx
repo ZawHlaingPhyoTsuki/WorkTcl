@@ -36,7 +36,6 @@ export function JobPostForm({ onSuccess }: JobPostFormProps) {
       description: "",
       location: "",
       type: "FULL_TIME",
-      facebookUrl: "",
       salaryMin: 0,
       salaryMax: 0,
     },
@@ -101,24 +100,6 @@ export function JobPostForm({ onSuccess }: JobPostFormProps) {
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input placeholder="Tachileik" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Facebook URL */}
-        <FormField
-          control={form.control}
-          name="facebookUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Facebook Page Link</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://facebook.com/yourUsername"
-                  {...field}
-                />
               </FormControl>
               <FormMessage />
             </FormItem>

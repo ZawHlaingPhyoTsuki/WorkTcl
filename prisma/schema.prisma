@@ -8,22 +8,29 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  kindeId      String   @unique
-  email        String   @unique
+  id           String        @id @default(cuid())
+  kindeId      String        @unique
+  email        String        @unique
   firstName    String?
   lastName     String?
   profileImage String?
-  createdAt    DateTime @default(now())
- 
   phone        String?
-  facebookUrl  String?
-  telegramUrl  String?
-  
-  role         Role     @default(USER)
-  plan         Plan     @default(FREE)
+  role         Role          @default(USER)
+  plan         Plan          @default(FREE)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
   jobs         Job[]
+  socialLinks  SocialLink[]
 }
+
+model SocialLink {
+  id     String  @id @default(cuid())
+  label  String  // e.g. "Facebook", "LinkedIn", "Portfolio"
+  url    String
+  user   User    @relation(fields: [userId], references: [id])
+  userId String
+} 
 
 model Job {
   id          String   @id @default(cuid())
@@ -31,7 +38,6 @@ model Job {
   description String
   type        JobType
   location    String
-  facebookUrl String
   createdAt   DateTime @default(now())
   
   salaryMin   Float? 
@@ -41,6 +47,22 @@ model Job {
   userId    String
   category  String?
   isActive  Boolean @default(true)
+  links     JobLink[]
+  
+  @@index([createdAt])
+  @@index([title])
+  @@index([description])
+  @@index([location])
+  @@index([type])
+  @@index([category])
+}
+
+model JobLink {
+  id     String  @id @default(cuid())
+  label  String  // e.g. "Facebook", "LinkedIn", "Application"
+  url    String
+  job    Job     @relation(fields: [jobId], references: [id])
+  jobId  String
 }
 
 enum Plan {

@@ -1,4 +1,4 @@
-import ProfileForm from "@/components/general/settings/ProfileForm";
+import { UserProfileForm } from "@/components/general/settings/UserProfileForm";
 import { Separator } from "@/components/ui/separator";
 import { prisma } from "@/lib/prisma";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -8,7 +8,7 @@ export default async function ProfilePage() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || !user.id) {
+  if (!user) {
     return redirect("/api/auth/login");
   }
 
@@ -34,7 +34,7 @@ export default async function ProfilePage() {
           </p>
         </div>
         <Separator />
-        <ProfileForm user={dbUser} />
+        <UserProfileForm userId={dbUser.id}  />
       </div>
     );
   } catch (error) {
