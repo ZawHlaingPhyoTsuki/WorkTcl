@@ -6,9 +6,11 @@ export async function GET() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
+  // Check if the user is authenticated
   if (!user || user == null || !user.id)
-    throw new Error("something went wrong with authentication" + user);
+    throw new Error("Something went wrong with authentication: " + user);
 
+  // Fetch the user from the database or create a new one
   let dbUser = await prisma.user.findUnique({
     where: { kindeId: user.id },
   });
@@ -25,11 +27,11 @@ export async function GET() {
     });
   }
 
+  // Get the base URL from the environment variable
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
   // Determine redirect URL based on role
-  const redirectUrl =
-    dbUser.role === "ADMIN"
-      ? "http://localhost:3000/dashboard"
-      : "http://localhost:3000";
+  const redirectUrl = dbUser.role === "ADMIN" ? `${baseUrl}/admin` : baseUrl;
 
   return NextResponse.redirect(redirectUrl);
 }
